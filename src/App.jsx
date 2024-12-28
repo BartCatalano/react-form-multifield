@@ -5,6 +5,7 @@ function App() {
 const  [lista, setLista] = useState ([]);
 const [articoloName, setArticoloName ] = useState ("");
 const [articoloDescription, setArticoloDescription] = useState("");
+const [immagineInsert, setImmagineInsert] = useState(""); 
 
 const handArticleForm = (event) => {
   event.preventDefault ();
@@ -12,19 +13,21 @@ const handArticleForm = (event) => {
   const newArticle = {
     id: Date.now(),
     title : articoloName,
-    description: articoloDescription
+    description: articoloDescription,
+    immagine: immagineInsert,
   }
   const newArray = [...lista, newArticle];
   
   
   setLista (newArray );
   setArticoloName("");
-  setArticoloDescription("")
+  setArticoloDescription("");
+  setImmagineInsert("")
 
 }
 
-const cancella = (idDaCancella) => {
-  const newArray = lista.filter(curArticolo => curArticolo.id !== idDaCancella);
+const cancella = (idDaCancellare) => {
+  const newArray = lista.filter(curArticolo => curArticolo.id !== idDaCancellare);
 
 setLista(newArray)
 }
@@ -43,8 +46,10 @@ setLista(newArray)
             <div className="card-body">
               <h4>{curItem.title}</h4>
               <p>{curItem.description}</p>
+              <div><img src={curItem.immagine} alt="" /></div>
               <button onClick={()=> cancella(curItem.id)} className="btn btn-danger">cancella</button>
             </div>
+            
           </div>
         </div>
       ))
@@ -72,6 +77,14 @@ setLista(newArray)
         id="articoloDescription" 
         value={articoloDescription} 
         onChange={(event)=> setArticoloDescription(event.target.value)}/> 
+      </div>
+      <div>
+      <label htmlFor="immagineInsert">Immagine</label>
+        <input type="text" 
+        className="form-control" 
+        id="immagineInsert" 
+        value={immagineInsert} 
+        onChange={(event)=> setImmagineInsert(event.target.value)}/> 
       </div>
       <button type="submit" className="btn btn-primary">salva</button>
     </form>
