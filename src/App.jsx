@@ -6,6 +6,7 @@ const  [lista, setLista] = useState ([]);
 const [articoloName, setArticoloName ] = useState ("");
 const [articoloDescription, setArticoloDescription] = useState("");
 const [immagineInsert, setImmagineInsert] = useState(""); 
+const [selectedOption, setSelectedOption] = useState ("");
 
 const handArticleForm = (event) => {
   event.preventDefault ();
@@ -15,6 +16,7 @@ const handArticleForm = (event) => {
     title : articoloName,
     description: articoloDescription,
     immagine: immagineInsert,
+    Categoria: selectedOption,
   }
   const newArray = [...lista, newArticle];
   
@@ -22,7 +24,8 @@ const handArticleForm = (event) => {
   setLista (newArray );
   setArticoloName("");
   setArticoloDescription("");
-  setImmagineInsert("")
+  setImmagineInsert("");
+  setSelectedOption("")
 
 }
 
@@ -46,7 +49,9 @@ setLista(newArray)
             <div className="card-body">
               <h4>{curItem.title}</h4>
               <p>{curItem.description}</p>
+              <div><p>Hai selezionato:{curItem.Categoria}</p></div>
               <div><img src={curItem.immagine} alt="" /></div>
+              
               <button onClick={()=> cancella(curItem.id)} className="btn btn-danger">cancella</button>
             </div>
             
@@ -86,6 +91,21 @@ setLista(newArray)
         value={immagineInsert} 
         onChange={(event)=> setImmagineInsert(event.target.value)}/> 
       </div>
+      <div className="m-2" >
+      <label htmlFor="selectOption">Seleziona un'opzione:</label>
+      <select
+        
+        onChange={(event)=> setSelectedOption(event.target.value)}
+        value={selectedOption}
+      >
+        <option value="">-- Seleziona --</option>
+        <option value=" Categoria 1">Categoria  1</option>
+        <option value=" Categoria 2">Categoria 2</option>
+      </select>
+      
+    </div>
+ 
+
       <button type="submit" className="btn btn-primary">salva</button>
     </form>
   </section>
