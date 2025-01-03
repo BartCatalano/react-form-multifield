@@ -1,4 +1,7 @@
 import { useState } from "react";
+
+
+// creo l'object iniziale cone le chiavi vuote
  const initialFormData = {
   name: "",
   description: "",
@@ -7,12 +10,19 @@ import { useState } from "react";
  }
 
 function App() {
+
+  // creo i due USESTATE, uno per la lista e l'alto per i form
+
 const  [lista, setLista] = useState ([]);
 const [formData, setFormData] = useState(initialFormData);
 
+// creo la funzione per i campi compilativi quando si clicca il submit
 const handArticleForm = (event) => {
+  // creo il prevent default
   event.preventDefault ();
-// creo oggetto del nuovo articolo
+
+
+// creo oggetto del nuovo articolo,
   const newArticle = {
     ...formData,
     id: Date.now(),
@@ -37,7 +47,7 @@ const cancella = (idDaCancellare) => {
 setLista(newArray)
 }
 
-// creo la funzione generica peg li imput
+// creo la funzione generica per gli input
 const handleInputChange = (event) => {
   const {name, value} = event.target;
   const newData = {
@@ -52,6 +62,8 @@ const handleInputChange = (event) => {
 
 
   return (
+
+    // creo la card che si dorvrà visualizzare
     <>
       <div className="container">
         <section>
@@ -79,6 +91,8 @@ const handleInputChange = (event) => {
           )}
   </div>
   </section>
+
+ 
   <section>
     <h3>aggiungi articolo</h3>
     <form onSubmit={handArticleForm} >
