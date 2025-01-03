@@ -1,38 +1,52 @@
 import { useState } from "react";
- 
+ const initialFormData = {
+  name: "",
+  description: "",
+  immagine: "",
+  option: "",
+ }
 
 function App() {
 const  [lista, setLista] = useState ([]);
-const [articoloName, setArticoloName ] = useState ("");
-const [articoloDescription, setArticoloDescription] = useState("");
-const [immagineInsert, setImmagineInsert] = useState(""); 
-const [selectedOption, setSelectedOption] = useState ("");
+const [formData, setFormData] = useState(initialFormData);
 
 const handArticleForm = (event) => {
   event.preventDefault ();
-
+// creo oggetto del nuovo articolo
   const newArticle = {
+    ...formData,
     id: Date.now(),
-    title : articoloName,
-    description: articoloDescription,
-    immagine: immagineInsert,
-    Categoria: selectedOption,
+    
   }
+
+  // creo copia dell'array con ila nuovo articolo 
   const newArray = [...lista, newArticle];
   
-  
+
+  // aggiorno lo stato della lista
   setLista (newArray );
-  setArticoloName("");
-  setArticoloDescription("");
-  setImmagineInsert("");
-  setSelectedOption("")
-
+  
+// ripulisco i campi del form
+setFormData(initialFormData);
 }
-
+// creo funzione per cancellare il post inserito
 const cancella = (idDaCancellare) => {
   const newArray = lista.filter(curArticolo => curArticolo.id !== idDaCancellare);
 
 setLista(newArray)
+}
+
+// creo la funzione generica peg li imput
+const handleInputChange = (event) => {
+  const chiaveCambiata = event.target.value;
+  const newData = {
+    ...formData,
+    chiaveCambiata,
+    
+  };
+
+  setFormData(newData);
+
 }
 
 
@@ -70,33 +84,34 @@ setLista(newArray)
       <div className="mb-3">
         <label htmlFor="articoloName">Nome articolo</label>
         <input type="text" 
-        className="form-control" 
+        className="form-control"
         id="articoloName" 
-        value={articoloName} 
-        onChange={(event)=> setArticoloName(event.target.value)}/> 
+        value={formData.name} 
+        onChange={handleInputChange}/> 
       </div>
       <div>
       <label htmlFor="articoloDescription">Descrizione</label>
         <input type="text" 
         className="form-control" 
+        nome="description"
         id="articoloDescription" 
-        value={articoloDescription} 
-        onChange={(event)=> setArticoloDescription(event.target.value)}/> 
+        value={formData.description} 
+        onChange={handleInputChange}/> 
       </div>
       <div>
       <label htmlFor="immagineInsert">Immagine</label>
         <input type="text" 
         className="form-control" 
         id="immagineInsert" 
-        value={immagineInsert} 
-        onChange={(event)=> setImmagineInsert(event.target.value)}/> 
+        value={formData.immagine} 
+        onChange={handleInputChange}/> 
       </div>
       <div className="m-2" >
       <label htmlFor="selectOption">Seleziona un'opzione:</label>
       <select
         
-        onChange={(event)=> setSelectedOption(event.target.value)}
-        value={selectedOption}
+        onChange={handleInputChange}
+        value={formData.option}
       >
         <option value="">-- Seleziona --</option>
         <option value=" Categoria 1">Categoria  1</option>
