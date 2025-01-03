@@ -19,6 +19,7 @@ const handArticleForm = (event) => {
     
   }
 
+
   // creo copia dell'array con ila nuovo articolo 
   const newArray = [...lista, newArticle];
   
@@ -28,7 +29,7 @@ const handArticleForm = (event) => {
   
 // ripulisco i campi del form
 setFormData(initialFormData);
-}
+};
 // creo funzione per cancellare il post inserito
 const cancella = (idDaCancellare) => {
   const newArray = lista.filter(curArticolo => curArticolo.id !== idDaCancellare);
@@ -38,10 +39,10 @@ setLista(newArray)
 
 // creo la funzione generica peg li imput
 const handleInputChange = (event) => {
-  const chiaveCambiata = event.target.value;
+  const {name, value} = event.target;
   const newData = {
     ...formData,
-    chiaveCambiata,
+    [name]: value,
     
   };
 
@@ -61,9 +62,9 @@ const handleInputChange = (event) => {
         <div className="col" key={curItem.id}>
           <div className="card">
             <div className="card-body">
-              <h4>{curItem.title}</h4>
+              <h4>{curItem.name}</h4>
               <p>{curItem.description}</p>
-              <div><p>Hai selezionato:{curItem.Categoria}</p></div>
+              <div><p>Hai selezionato:{curItem.option}</p></div>
               <div><img src={curItem.immagine} alt="" /></div>
               
               <button onClick={()=> cancella(curItem.id)} className="btn btn-danger">cancella</button>
@@ -85,6 +86,7 @@ const handleInputChange = (event) => {
         <label htmlFor="articoloName">Nome articolo</label>
         <input type="text" 
         className="form-control"
+        name="name"
         id="articoloName" 
         value={formData.name} 
         onChange={handleInputChange}/> 
@@ -93,7 +95,7 @@ const handleInputChange = (event) => {
       <label htmlFor="articoloDescription">Descrizione</label>
         <input type="text" 
         className="form-control" 
-        nome="description"
+        name="description"
         id="articoloDescription" 
         value={formData.description} 
         onChange={handleInputChange}/> 
@@ -102,6 +104,7 @@ const handleInputChange = (event) => {
       <label htmlFor="immagineInsert">Immagine</label>
         <input type="text" 
         className="form-control" 
+        name="immagine"
         id="immagineInsert" 
         value={formData.immagine} 
         onChange={handleInputChange}/> 
@@ -109,7 +112,7 @@ const handleInputChange = (event) => {
       <div className="m-2" >
       <label htmlFor="selectOption">Seleziona un'opzione:</label>
       <select
-        
+        name="option"
         onChange={handleInputChange}
         value={formData.option}
       >
